@@ -71,7 +71,7 @@
      echo "Hello World VP" >> ~/docker-nginx/html/index.html
      sudo docker rm docker-nginx
 
-  - name: run Docker nginx NEW  Image 80 port
+  - name: run Docker nginx NEWLA  Image 80 port
     shell: "sudo docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx"
 
 
