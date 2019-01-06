@@ -67,9 +67,17 @@
     shell: |
      rm -rf ~/docker-nginx/html 
      mkdir -p ~/docker-nginx/html
-     touch ~/docker-nginx/html/index.html
-     echo "Hello World VP" >> ~/docker-nginx/html/index.html
-     sudo docker rm docker-nginx
+    ignore_errors: yes
+
+  - name: Ansible copy file to remote server
+    copy:
+      src: /Users/vishydarshy/Work/software/index.html
+      dest: ~/docker-nginx/html/ 
+ 
+  - name: Check for containers that actually exist
+    shell: sudo docker rm $(sudo docker ps -a -q) 
+    register: found_containers
+    ignore_errors: yes 
 
   - name: run Docker nginx NEWLA  Image 80 port
     shell: "sudo docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx"
